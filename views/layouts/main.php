@@ -60,11 +60,12 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
 <nav class="navbar">
       <div class="logo">
-        <!-- <img src="logo.png" /> -->
         <a href="/"><h2>SI-Klinik</h2></a>
       </div>
       <div class="links">
         <a href="index.php?r=report">Report</a>
+        <a href="index.php?r=daftar-pasien">Transaksi Pasien</a>
+        <a href="index.php?r=pembayaran">Informasi Pembayaran</a>
         <div class="dropdown">
           <a href="#">Fitur CRUD</a>
           <div class="menu">

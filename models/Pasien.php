@@ -13,7 +13,8 @@ use Yii;
  * @property string|null $id_tindakan
  * @property string|null $id_obat
  * @property string|null $alamat
- * @property string $id_wilayah
+ * @property string|null $id_wilayah
+ * @property string $jenis_kelamin
  */
 class Pasien extends \yii\db\ActiveRecord
 {
@@ -31,11 +32,11 @@ class Pasien extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'nik', 'id_wilayah'], 'required'],
+            [['nama', 'nik', 'jenis_kelamin'], 'required'],
             [['alamat'], 'string'],
             [['nama'], 'string', 'max' => 255],
             [['nik', 'id_tindakan', 'id_obat'], 'string', 'max' => 20],
-            [['id_wilayah'], 'string', 'max' => 100],
+            [['id_wilayah', 'jenis_kelamin'], 'string', 'max' => 100],
         ];
     }
 
@@ -52,6 +53,7 @@ class Pasien extends \yii\db\ActiveRecord
             'id_obat' => 'Id Obat',
             'alamat' => 'Alamat',
             'id_wilayah' => 'Id Wilayah',
+            'jenis_kelamin' => 'Jenis Kelamin',
         ];
     }
 }

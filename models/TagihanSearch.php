@@ -18,7 +18,7 @@ class TagihanSearch extends Tagihan
     {
         return [
             [['id_tagihan'], 'integer'],
-            [['id_obat', 'id_tindakan', 'total_bayar', 'status_pembayaran'], 'safe'],
+            [['id_pasien', 'id_obat', 'id_tindakan', 'total_bayar', 'status_pembayaran'], 'safe'],
         ];
     }
 
@@ -61,7 +61,8 @@ class TagihanSearch extends Tagihan
             'id_tagihan' => $this->id_tagihan,
         ]);
 
-        $query->andFilterWhere(['like', 'id_obat', $this->id_obat])
+        $query->andFilterWhere(['like', 'id_pasien', $this->id_pasien])
+            ->andFilterWhere(['like', 'id_obat', $this->id_obat])
             ->andFilterWhere(['like', 'id_tindakan', $this->id_tindakan])
             ->andFilterWhere(['like', 'total_bayar', $this->total_bayar])
             ->andFilterWhere(['like', 'status_pembayaran', $this->status_pembayaran]);

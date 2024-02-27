@@ -91,3 +91,7 @@ a.desc:after {
 .form-group {
     margin-bottom: 1rem;
 }
+
+.pasien-view a{
+    margin: 5px;
+}

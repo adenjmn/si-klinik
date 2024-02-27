@@ -3,76 +3,75 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
-
+use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 
 /** @var yii\data\ActiveDataProvider $dataProvider */
+
+$this->title = 'Report';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h1>report/index</h1>
+<?php
+$mysqli = new mysqli("localhost", "root", "", "inovamedika");
 
-<p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
-</p>
+if ($mysqli->connect_error) {
+  die("Koneksi ke database gagal: " . $mysqli->connect_error);
+}
+
+$query = "SELECT jenis_kelamin, COUNT(*) as total FROM pasien GROUP BY jenis_kelamin";
+$result = $mysqli->query($query);
+$data = array();
+while ($row = $result->fetch_assoc()) {
+  $data[$row['jenis_kelamin']] = $row['total'];
+}
+
+$mysqli->close();
+?>
+
 <h2>Pie Chart</h2>
-<div id="piechart" style="width: 900px; height: 500px;"></div>
-<h2>Combo Chart</h2>
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
+<div class="container">
+  <div class="col-lg-6">
+    <h3>Grafis berdasarkan janis kelamin</h3>
+    <canvas id="myChart" width="400" height="400"></canvas>
+  </div>
+</div>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-    google.charts.load('current', {
-        'packages': ['corechart']
-    });
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Work', 11],
-            ['Eat', 2],
-            ['Commute', 2],
-            ['Watch TV', 2],
-            ['Sleep', 7]
-        ]);
-
-        var options = {
-            title: 'My Daily Activities'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-    }
-</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawVisualization);
+  var data = <?php echo json_encode($data); ?>;
+  var labels = [];
+  var dataset = [];
+  for (var key in data) {
+    if (data.hasOwnProperty(key)) {
+      labels.push(key);
+      dataset.push(data[key]);
+    }
+  }
 
-      function drawVisualization() {
-        // Some raw data (not necessarily accurate)
-        var data = google.visualization.arrayToDataTable([
-          ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-          ['2004/05',  165,      938,         522,             998,           450,      614.6],
-          ['2005/06',  135,      1120,        599,             1268,          288,      682],
-          ['2006/07',  157,      1167,        587,             807,           397,      623],
-          ['2007/08',  139,      1110,        615,             968,           215,      609.4],
-          ['2008/09',  136,      691,         629,             1026,          366,      569.6]
-        ]);
-
-        var options = {
-          title : 'Monthly Coffee Production by Country',
-          vAxis: {title: 'Cups'},
-          hAxis: {title: 'Month'},
-          seriesType: 'bars',
-          series: {5: {type: 'line'}}
-        };
-
-        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Jumlah Pasien',
+        data: dataset,
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 99, 132, 0.5)', 
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: false,
+      maintainAspectRatio: false
+    }
+  });
 </script>

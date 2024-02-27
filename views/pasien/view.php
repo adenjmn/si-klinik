@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_obat',
             'alamat:ntext',
             'id_wilayah',
+            'jenis_kelamin',
         ],
     ]) ?>
 

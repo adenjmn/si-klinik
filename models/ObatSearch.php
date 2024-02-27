@@ -18,7 +18,7 @@ class ObatSearch extends Obat
     {
         return [
             [['id_obat'], 'integer'],
-            [['id_pasien', 'nama_obat', 'dosis', 'harga'], 'safe'],
+            [['nama_obat', 'dosis', 'harga'], 'safe'],
         ];
     }
 
@@ -61,8 +61,7 @@ class ObatSearch extends Obat
             'id_obat' => $this->id_obat,
         ]);
 
-        $query->andFilterWhere(['like', 'id_pasien', $this->id_pasien])
-            ->andFilterWhere(['like', 'nama_obat', $this->nama_obat])
+        $query->andFilterWhere(['like', 'nama_obat', $this->nama_obat])
             ->andFilterWhere(['like', 'dosis', $this->dosis])
             ->andFilterWhere(['like', 'harga', $this->harga]);
 

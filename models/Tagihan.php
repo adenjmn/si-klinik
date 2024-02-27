@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "tagihan".
  *
  * @property int $id_tagihan
+ * @property string|null $id_pasien
  * @property string|null $id_obat
  * @property string|null $id_tindakan
  * @property string|null $total_bayar
@@ -29,7 +30,7 @@ class Tagihan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_obat', 'id_tindakan'], 'string', 'max' => 20],
+            [['id_pasien', 'id_obat', 'id_tindakan'], 'string', 'max' => 20],
             [['total_bayar', 'status_pembayaran'], 'string', 'max' => 10],
         ];
     }
@@ -41,6 +42,7 @@ class Tagihan extends \yii\db\ActiveRecord
     {
         return [
             'id_tagihan' => 'Id Tagihan',
+            'id_pasien' => 'Id Pasien',
             'id_obat' => 'Id Obat',
             'id_tindakan' => 'Id Tindakan',
             'total_bayar' => 'Total Bayar',

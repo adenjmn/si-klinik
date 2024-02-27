@@ -17,13 +17,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_tagihan') ?>
 
+    <?= $form->field($model, 'id_pasien') ?>
+
     <?= $form->field($model, 'id_obat') ?>
 
     <?= $form->field($model, 'id_tindakan') ?>
 
     <?= $form->field($model, 'total_bayar') ?>
 
-    <?= $form->field($model, 'status_pembayaran') ?>
+    <?php // echo $form->field($model, 'status_pembayaran') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

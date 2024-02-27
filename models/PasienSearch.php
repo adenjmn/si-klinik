@@ -18,7 +18,7 @@ class PasienSearch extends Pasien
     {
         return [
             [['id_pasien'], 'integer'],
-            [['nama', 'nik', 'id_tindakan', 'id_obat', 'alamat', 'id_wilayah'], 'safe'],
+            [['nama', 'nik', 'id_tindakan', 'id_obat', 'alamat', 'id_wilayah', 'jenis_kelamin'], 'safe'],
         ];
     }
 
@@ -66,7 +66,8 @@ class PasienSearch extends Pasien
             ->andFilterWhere(['like', 'id_tindakan', $this->id_tindakan])
             ->andFilterWhere(['like', 'id_obat', $this->id_obat])
             ->andFilterWhere(['like', 'alamat', $this->alamat])
-            ->andFilterWhere(['like', 'id_wilayah', $this->id_wilayah]);
+            ->andFilterWhere(['like', 'id_wilayah', $this->id_wilayah])
+            ->andFilterWhere(['like', 'jenis_kelamin', $this->jenis_kelamin]);
 
         return $dataProvider;
     }

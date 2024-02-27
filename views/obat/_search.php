@@ -17,8 +17,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_obat') ?>
 
-    <?= $form->field($model, 'id_pasien') ?>
-
     <?= $form->field($model, 'nama_obat') ?>
 
     <?= $form->field($model, 'dosis') ?>

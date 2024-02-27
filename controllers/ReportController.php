@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Pasien;
+use app\models\PasienSearch;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
@@ -39,15 +41,12 @@ class ReportController extends \yii\web\Controller
         // // Mendapatkan instance dari komponen DB
         // $db = Yii::$app->db;
         
-        // // Membuat query menggunakan Query Builder
-        // $query = $db->createCommand('SELECT * FROM tindakan');
-        
-        // // Eksekusi query dan ambil semua data
-        // $dataProvider = $query->queryAll();
-        
+        $searchModel = new PasienSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+        // $dataProvider->query->where(['jenis_kelamin'=>'Laki-Laki']);
         // $dataProvider = (new \yii\db\Query())->from('tindakan')->count();
         return $this->render('index',[
-            // 'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider
         ]);
     }
 
